@@ -53,7 +53,7 @@
             font-weight: bolder;
         }
 
-        .btn, .btn:hover {
+        .btn-theme, .btn-theme:hover {
             border-radius: 0;
             background: #ffffff;
             font-size: 20px;
@@ -86,6 +86,8 @@
             margin-top: 30px;
             margin-bottom: 30px;
         }
+
+        #cb-cookie-banner { position: fixed; bottom: 0; left: 0; width: 100%; z-index: 999; border-radius: 0; display: none; }
     </style>
 </head>
 <body>
@@ -130,7 +132,7 @@
                 <li>Real-time access, reporting, and capital control</li>
             </ul>
         </div>
-        <a href="https://docsend.com/v/h49b5/finlabz" target="_blank" class="btn">
+        <a href="https://docsend.com/v/h49b5/finlabz" target="_blank" class="btn btn-theme">
             Full strategy overview is available here
         </a>
     </div>
@@ -168,5 +170,44 @@
         </div>
     </div>
 </div>
+<!-- Cookie Banner -->
+<div id="cb-cookie-banner" class="alert alert-dark text-center mb-0" role="alert">
+    🍪 This website uses cookies to ensure you get the best experience on our website
+    <button type="button" class="btn btn-primary btn-sm ms-3" onclick="window.hideCookieBanner()">
+        I Got It
+    </button>
+</div>
+<!-- End of Cookie Banner -->
 </body>
+<script type="text/javascript">
+    /* Javascript to show and hide cookie banner using localstorage */
+    /* Shows the Cookie banner */
+    function showCookieBanner(){
+        let cookieBanner = document.getElementById("cb-cookie-banner");
+        cookieBanner.style.display = "block";
+    }
+
+    /* Hides the Cookie banner and saves the value to localstorage */
+    function hideCookieBanner(){
+        localStorage.setItem("cb_isCookieAccepted", "yes");
+        let cookieBanner = document.getElementById("cb-cookie-banner");
+        cookieBanner.style.display = "none";
+    }
+
+    /* Checks the localstorage and shows Cookie banner based on it. */
+    function initializeCookieBanner(){
+        let isCookieAccepted = localStorage.getItem("cb_isCookieAccepted");
+        if(isCookieAccepted === null)
+        {
+            localStorage.setItem("cb_isCookieAccepted", "no");
+            showCookieBanner();
+        }
+        if(isCookieAccepted === "no"){
+            showCookieBanner();
+        }
+    }
+
+    // Assigning values to window object
+    window.onload = initializeCookieBanner();
+</script>
 </html>
